@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTA | Apprends à trader comme les institutionnels</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/logo.png">
+    
+    <!-- Fonts: Satoshi & Inter via Fontshare -->
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,900,500,400&f[]=clash-display@600,700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --bg-deep: #0d1117;
+            --bg-card: #161b22;
+            --bg-secondary: #1c2333;
+            --border: rgba(255,255,255,0.08);
+            
+            --text-main: #e6edf3;
+            --text-muted: #7d8590;
+            --text-faint: #484f58;
+            
+            --green: #3fb950;
+            --green-hover: #2ea043;
+            --green-soft: rgba(63, 185, 80, 0.12);
+            
+            --white: #ffffff;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .font-serif {
+            font-family: 'Satoshi', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-padding {
+            padding: 70px 0;
+        }
+
+        .highlight-green {
+            color: var(--green);
+        }
+
+        /* Banner styling */
+        .journey-banner {
+            background: linear-gradient(90deg, var(--bg-card), var(--bg-secondary));
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            gap: 2rem;
+            flex-wrap: wrap;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .journey-banner {
+                flex-direction: column;
+                gap: 1.5rem;
+                padding: 2rem;
+            }
+            h2 {
+                white-space: normal !important;
+            }
+            .trading-quote {
+                white-space: normal !important;
+            }
+            #youtube-footer {
+                flex-direction: column !important;
+                text-align: center !important;
+            }
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            border-radius: 8px; /* Finary style is less rounded, more professional */
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            gap: 0.5rem;
+        }
+
+        .btn-green {
+            background: var(--green);
+            color: #000;
+            border: none;
+        }
+
+        .btn-green:hover {
+            background: var(--green-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(63,185,80,0.25);
+        }
+
+        .btn-outline-green {
+            background: transparent;
+            border: 1px solid rgba(63,185,80,0.5);
+            color: var(--green);
+        }
+
+        .btn-outline-green:hover {
+            background: var(--green-soft);
+            border-color: var(--green);
+            box-shadow: 0 0 20px rgba(63,185,80,0.15);
+        }
+
+        .btn-discord {
+            background: transparent;
+            border: 1px solid #5865F2;
+            color: #5865F2;
+        }
+
+        .btn-discord:hover {
+            background: rgba(88, 101, 242, 0.1);
+            border-color: #5865F2;
+            box-shadow: 0 0 20px rgba(88, 101, 242, 0.2);
+            color: #5865F2;
+        }
+
+        .btn-instagram {
+            background: transparent;
+            border: 1px solid #E4405F;
+            color: #E4405F;
+        }
+
+        .btn-instagram:hover {
+            background: rgba(228, 64, 95, 0.1);
+            border-color: #E4405F;
+            box-shadow: 0 0 20px rgba(228, 64, 95, 0.2);
+            color: #E4405F;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 0;
+            transition: var(--transition);
+        }
+
+        nav.scrolled {
+            background: rgba(13, 17, 23, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: 'Satoshi', sans-serif;
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: var(--green);
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 32px;
+            width: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        nav .logo img {
+            height: 40px;
+        }
+
+        .logo span {
+            font-size: 0.6rem;
+            color: var(--white);
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            text-transform: none;
+            margin-top: 4px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .nav-links a:hover {
+            color: var(--green);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            color: var(--white);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        #hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: 
+                radial-gradient(ellipse at 50% 0%, rgba(63,185,80,0.15) 0%, transparent 60%),
+                linear-gradient(135deg, #0d1117 0%, #1c2333 50%, #0d2137 100%);
+            overflow: hidden;
+        }
+
+        #hero .btn {
+            min-width: 280px;
+        }
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 24px 24px;
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 8vw, 5.5rem);
+            line-height: 1.1;
+            margin-bottom: 0.5rem; /* Reduced margin to accommodate sub-headline */
+            color: var(--text-main);
+        }
+
+        .hero-subheadline {
+            font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-weight: 400;
+            max-width: 850px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            color: var(--text-muted);
+        }
+
+        .hero-ctas {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .badge-live {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(5px);
+            padding: 0.75rem 1.5rem;
+            border-radius: 100px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.9rem;
+        }
+
+        .badge-free {
+            background: var(--green);
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .dot-red {
+            width: 8px;
+            height: 8px;
+            background: #ff4d4d;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ff4d4d;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+
+        /* About Section */
+        #about {
+            position: relative;
+            background: linear-gradient(to bottom, var(--bg-deep), #0d1117);
+        }
+
+        #about .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--green);
+            border-radius: 24px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 24px;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+            display: block;
+        }
+
+        .about-badge {
+            position: absolute;
+            bottom: 30px;
+            right: -20px;
+            background: var(--bg-card);
+            color: var(--green);
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            border: 1px solid rgba(63,185,80,0.3);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .section-subtitle {
+            display: block;
+            color: var(--green);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .about-text h2 {
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            margin-bottom: 2rem;
+            color: var(--white);
+        }
+
+        .story-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .story-block {
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 2px solid var(--green);
+            padding: 1.5rem;
+            border-radius: 0 16px 16px 0;
+            transition: var(--transition);
+        }
+
+        .story-block:hover {
+            background: rgba(63, 185, 80, 0.05);
+            transform: translateX(10px);
+        }
+
+        .story-block i {
+            color: var(--green);
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .story-block p {
+            margin-bottom: 0;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-main);
+        }
+
+        .about-highlights {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+            padding: 1.5rem 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .highlight-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .highlight-num {
+            font-family: 'Satoshi', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--green);
+        }
+
+        .highlight-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .about-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-top: 2.5rem;
+        }
+
+        .about-signature {
+            font-family: 'Satoshi', sans-serif;
+        }
+
+        .signature-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 0.2rem;
+        }
+
+        .signature-title {
+            font-size: 0.85rem;
+            color: var(--green);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 1024px) {
+            #about .about-grid { gap: 4rem; }
+        }
+
+        @media (max-width: 768px) {
+            #about .about-grid { display: flex; flex-direction: column; text-align: center; }
+            .about-image { order: 1; max-width: 450px; margin: 0 auto; }
+            .about-image::before { display: none; }
+            .about-text { order: 2; }
+            .about-highlights { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+            .about-footer { flex-direction: column; text-align: center; }
+        }
+
+        /* Trading Strategy Section */
+        #trading {
+            background-color: var(--bg-deep);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 5rem;
+        }
+
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .strategy-card {
+            background: var(--bg-card);
+            padding: 3rem 2rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+            position: relative; /* For absolute numbering */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-number {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--green);
+            opacity: 0.15;
+            line-height: 1;
+        }
+
+        .strategy-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(63,185,80,0.3);
+            box-shadow: 0 8px 32px rgba(63,185,80,0.1);
+        }
+
+        .strategy-card i {
+            color: var(--green);
+            margin-bottom: 1.5rem;
+        }
+
+        .strategy-card h3 {
+            font-size: 1.35rem; /* Slightly smaller to fit longer titles */
+            margin-bottom: 1.25rem;
+            color: var(--text-main);
+            padding-right: 2rem;
+        }
+
+        .strategy-card p {
+            flex-grow: 1;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-subtext {
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding-top: 1.25rem;
+            font-size: 0.9rem;
+            font-style: italic;
+            color: var(--text-muted);
+        }
+
+        /* Sequence Indicator */
+        .strategy-card:not(:last-child)::after {
+            content: '→';
+            position: absolute;
+            right: -1.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--green);
+            font-size: 1.5rem;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        @media (max-width: 1024px) {
+            .strategy-card:not(:last-child)::after {
+                display: none;
+            }
+        }
+
+        .trading-quote {
+            background: rgba(63, 185, 80, 0.08);
+            border-left: 3px solid var(--green);
+            padding: 2rem;
+            border-radius: 4px 16px 16px 4px;
+            text-align: center;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-main);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Videos Section */
+        #videos {
+            background-color: var(--bg-deep);
+        }
+
+        .featured-video {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/image intro.png');
+            background-size: cover;
+            background-position: center;
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 3rem;
+            position: relative;
+            margin-bottom: 4rem;
+            cursor: pointer;
+            overflow: hidden;
+            border: 1px solid rgba(63,185,80,0.3);
+            box-shadow: 0 0 32px rgba(63,185,80,0.05);
+        }
+
+        .play-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: var(--green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            transition: var(--transition);
+        }
+
+        .featured-video:hover .play-overlay {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: var(--green-hover);
+        }
+
+        .featured-info h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+        }
+
+        .video-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .video-meta .badge {
+            background: var(--green-soft);
+            color: var(--green);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-weight: 700;
+            border: 1px solid rgba(63,185,80,0.3);
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .video-card {
+            cursor: pointer;
+        }
+
+        .video-thumb {
+            aspect-ratio: 16/9;
+            background: var(--bg-card);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .video-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+            transition: var(--transition);
+            filter: grayscale(0.5);
+            transform: scale(1.02); /* Slight zoom to hide potential white edges on corners */
+        }
+
+        .video-card:hover .video-thumb img {
+            opacity: 0.9;
+            transform: scale(1.1);
+            filter: grayscale(0);
+        }
+
+        .thumb-overlay {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.8);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+        }
+
+        .thumb-play {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 48px;
+            height: 48px;
+            background: var(--green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            opacity: 0.9;
+        }
+
+        .video-card h4 {
+            font-size: 1.05rem;
+            margin-bottom: 0.25rem;
+            color: var(--text-main);
+        }
+
+        .video-card .free-badge {
+            font-size: 0.8rem;
+            color: var(--green);
+            background: var(--green-soft);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* Pricing Grid */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            align-items: flex-start;
+            margin-bottom: 3rem;
+        }
+
+        .pricing-card {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 3rem 2.5rem;
+            border: 1px solid var(--border);
+            position: relative;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .pricing-card.highlight {
+            border-color: var(--green);
+            box-shadow: 0 0 40px rgba(63,185,80,0.15);
+            transform: scale(1.03);
+            z-index: 10;
+            padding-top: 4rem;
+        }
+
+        .pricing-card.highlight-purple {
+            border-color: #5865F2;
+            box-shadow: 0 0 40px rgba(88, 101, 242, 0.15);
+            transform: scale(1.03);
+            z-index: 10;
+            padding-top: 4rem;
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            padding: 4px 12px;
+            border-radius: 100px;
+            background: var(--bg-secondary);
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+        }
+
+        .pricing-card.highlight .pricing-badge {
+            background: var(--green);
+            color: #fff;
+            border: none;
+        }
+
+        .pricing-card.highlight-purple .pricing-badge {
+            background: #5865F2;
+            color: #fff;
+            border: none;
+        }
+
+        .pricing-card.highlight-purple .pricing-motivation {
+            color: #5865F2;
+        }
+
+        .pricing-card.highlight-purple .price-value {
+            color: #5865F2;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .price-container {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .price-value {
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 900;
+            line-height: 1;
+            display: block;
+        }
+
+        .pricing-card.highlight .price-value {
+            color: var(--green);
+        }
+
+        .price-subtext {
+            font-size: 0.9rem;
+            color: var(--text-faint);
+            display: block;
+            margin-top: 0.5rem;
+        }
+
+        .pricing-subtitle {
+            text-align: center;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem; /* Reduced to fit motivation line */
+            min-height: 3rem;
+        }
+
+        .pricing-motivation {
+            font-size: 0.85rem;
+            color: var(--green);
+            font-style: italic;
+            text-align: center;
+            margin-bottom: 2rem;
+            display: block;
+        }
+
+        .pricing-list {
+            margin-bottom: 2.5rem;
+            flex-grow: 1;
+        }
+
+        .pricing-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .pricing-item i {
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+
+        .pricing-item.excluded {
+            color: var(--text-faint);
+            text-decoration: line-through;
+        }
+
+        .pricing-item i.check { color: var(--green); }
+        .pricing-item i.x { color: var(--text-faint); }
+
+        .btn-white {
+            background: var(--white);
+            color: #000;
+            border: none;
+        }
+        
+        .btn-white:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+        }
+
+        .program-note {
+            text-align: center;
+            margin-top: 2rem;
+            color: var(--text-faint);
+        }
+
+        @media (max-width: 1024px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .pricing-card.highlight {
+                transform: none;
+            }
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.06);
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 4rem;
+            color: var(--green);
+            opacity: 0.15;
+            font-family: serif;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            color: var(--text-main);
+            position: relative;
+            z-index: 1;
+        }
+
+        .rating {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 1.5rem;
+            color: var(--green);
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-info h5 {
+            font-size: 1rem;
+            margin-bottom: 0.1rem;
+            color: var(--text-main);
+        }
+
+        .author-info span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #090d13;
+            padding: 80px 0 40px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-logo-side h3 {
+            color: var(--green);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links-side {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .footer-links-side h4 {
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-main);
+        }
+
+        .footer-links-side ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links-side ul li a {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .footer-links-side ul li a:hover {
+            color: var(--green);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.03);
+            color: var(--text-faint);
+            font-size: 0.85rem;
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            #about .about-grid { gap: 3rem; }
+            .strategy-grid { grid-template-columns: 1fr 1fr; }
+            .testimonials-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        .testimonials-container {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links, .nav-actions { display: none; }
+            .mobile-menu-btn { display: block; }
+            
+            #hero .hero-content h1 { font-size: 3.2rem; }
+            #hero .hero-subheadline { font-size: 1rem; }
+            #hero .badge-live { display: none; }
+
+            #hero .hero-ctas { flex-direction: column; gap: 1rem; }
+            #about .about-grid { display: flex; flex-direction: column; text-align: center; }
+            .about-image { order: 1; max-width: 400px; margin: 0 auto; }
+            .about-text { order: 2; }
+            .about-badge { right: 0; }
+            
+            .strategy-grid { grid-template-columns: 1fr; }
+            
+            .video-grid { grid-template-columns: 1fr; }
+            .video-grid .video-card:nth-child(n+4) { display: none; }
+            #youtube-footer { align-items: center !important; text-align: center !important; display: flex !important; }
+            #youtube-footer h4 { margin-bottom: 0.5rem !important; }
+
+            .testimonials-container {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                gap: 1.5rem;
+                padding: 1rem 0;
+                -webkit-overflow-scrolling: touch;
+            }
+            .testimonials-grid { display: none; }
+            .testimonials-container .testimonial-card {
+                min-width: 85%;
+                scroll-snap-align: center;
+                opacity: 1;
+                transform: none;
+            }
+            
+            .inclusions-grid { grid-template-columns: 1fr; }
+            .program-card { padding: 2.5rem 1.5rem; }
+            
+            .footer-grid { grid-template-columns: 1fr; text-align: center; }
+            .footer-links-side { grid-template-columns: 1fr; }
+        }
+
+        /* Mobile Menu Overlay */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-deep);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            transition: var(--transition);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            color: var(--text-main);
+            cursor: pointer;
+        }
+
+        .mobile-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .mobile-links a {
+            font-size: 2rem;
+            font-family: 'Satoshi', sans-serif;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <i data-lucide="x" class="close-menu" onclick="toggleMenu()"></i>
+        <a href="index.html" class="logo" style="margin-bottom: 3rem; transform: scale(1.5); align-items: center; text-align: center;"><img src="images/logo.png" alt="BTA Logo"></a>
+        <div class="mobile-links">
+            <a href="#about" onclick="toggleMenu()">À propos</a>
+            <a href="#trading" onclick="toggleMenu()">Le Trading</a>
+            <a href="#videos" onclick="toggleMenu()">Vidéos</a>
+            <a href="#program" onclick="toggleMenu()">Accompagnement</a>
+        </div>
+        <div class="mobile-actions" style="display: flex; gap: 1rem; width: 100%; max-width: 320px; padding: 0 2rem;">
+            <a href="apply.html" class="btn btn-green" style="flex: 1; white-space: nowrap;">Je postule</a>
+            <a href="https://discord.gg/MpbdTXYc" target="_blank" class="btn btn-discord" style="flex: 1; white-space: nowrap;">Discord</a>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container">
+            <a href="index.html" class="logo"><img src="images/logo.png" alt="BTA Logo"></a>
+            
+            <ul class="nav-links">
+                <li><a href="#about">À propos</a></li>
+                <li><a href="#trading">Le Trading</a></li>
+                <li><a href="#videos">Vidéos</a></li>
+                <li><a href="#program">Accompagnement</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <a href="https://discord.gg/MpbdTXYc" target="_blank" class="btn btn-discord" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;">Discord</a>
+                <a href="apply.html" class="btn btn-green" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;">Je postule</a>
+            </div>
+            <i data-lucide="menu" class="mobile-menu-btn" onclick="toggleMenu()"></i>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="hero-content container">
+            <h1 class="reveal">Apprends à trader en suivant les <span class="highlight-green">institutions</span></h1>
+            <p class="hero-subheadline reveal">Acquiers une vraie compétence et construis ta liberté financière depuis n'importe où dans le monde.</p>
+            <div class="hero-ctas reveal">
+                <a href="#videos" class="btn btn-outline-green">Apprendre les bases</a>
+                <a href="#program" class="btn btn-green">Voir l'accompagnement</a>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
+                    <a href="https://discord.gg/MpbdTXYc" target="_blank" class="btn btn-discord">Rejoindre le Discord</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section-padding">
+        <div class="container">
+            <!-- Mon Parcours Banner -->
+            <div class="journey-banner reveal" style="margin-bottom: 4rem; background: linear-gradient(90deg, rgba(22, 27, 34, 0.7), rgba(28, 35, 51, 0.7));">
+                <div style="flex: 1; min-width: 150px;">
+                    <span class="section-subtitle" style="margin-bottom: 0;">Mon Parcours</span>
+                </div>
+                <div class="highlight-item" style="flex: 1; min-width: 150px;">
+                    <span class="highlight-num" style="font-size: 2.2rem;">3+ ans</span>
+                    <span class="highlight-label" style="font-size: 1rem;">d'apprentissage</span>
+                </div>
+                <div class="highlight-item" style="flex: 1; min-width: 150px;">
+                    <span class="highlight-num" style="font-size: 2.2rem; color: var(--green);">Prop Firm</span>
+                    <span class="highlight-label" style="font-size: 1rem;">Trader financé</span>
+                </div>
+                <div class="highlight-item" style="flex: 1; min-width: 150px;">
+                    <span class="highlight-num" style="font-size: 2.2rem;">100%</span>
+                    <span class="highlight-label" style="font-size: 1rem;">Indépendant & Libre</span>
+                </div>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-image reveal">
+                    <img src="images/bastien-story.jpg" alt="Bastien Trader">
+                    <div class="about-badge">
+                        <i data-lucide="map-pin" size="18"></i>
+                        Bali, Indonésie
+                    </div>
+                </div>
+                <div class="about-text reveal">
+                    <h2>Mon histoire</h2>
+                    
+                    <div class="story-content">
+                        <div class="story-block reveal">
+                            <i data-lucide="briefcase" size="20"></i>
+                            <p>J'ai fait le choix de quitter mon poste chez Mercedes parce que j'ai vu l'opportunité immense de générer des revenus grâce à l'investissement. Ce n'était pas un simple coup de tête, mais le début d'une passion dévorante pour les marchés financiers.</p>
+                        </div>
+                        <div class="story-block reveal">
+                            <i data-lucide="line-chart" size="20"></i>
+                            <p>Je me suis formé intensivement pendant deux ans au trading à temps plein. Cette immersion totale m'a permis de comprendre que derrière les graphiques, les gros acteurs (les institutions) laissent des traces sur le prix. Aujourd'hui, je trade depuis Bali en liberté totale.</p>
+                        </div>
+                        <div class="story-block reveal">
+                            <i data-lucide="graduation-cap" size="20"></i>
+                            <p>Si j'ai créé la BTA, c'est avant tout par passion pour la transmission : j'adore voir mes élèves progresser et comprendre enfin les marchés. C'est cette vision complète, à la fois technique et stratégique, que je partage avec vous.</p>
+                        </div>
+                    </div>
+
+                    <div class="about-footer">
+                        <div class="about-signature">
+                            <div class="signature-name">Bastien</div>
+                            <div class="signature-title">Fondateur de la BTA</div>
+                        </div>
+                        <a href="#program" class="btn btn-outline-green">Découvrir ma méthode</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trading Section -->
+    <section id="trading" class="section-padding" style="padding-top: 50px;">
+        <div class="container">
+            <div class="section-header reveal" style="margin-bottom: 3rem; max-width: none;">
+                <h2 style="white-space: nowrap;">Comment les marchés fonctionnent<br>VRAIMENT</h2>
+                <p>Ce que les institutions font et ce qu'on reproduit.</p>
+            </div>
+
+            <div class="strategy-grid" style="margin-bottom: 3rem;">
+                <div class="strategy-card reveal">
+                    <div class="card-number">01</div>
+                    <h3>Les banques centrales fixent les règles</h3>
+                    <p>La Fed, la BCE... Ce sont elles qui contrôlent les taux d'intérêt, la masse monétaire et les grandes orientations économiques. Leurs décisions créent les tendances macro qui guident tous les marchés financiers.</p>
+                    <div class="card-subtext">Quand la Fed monte les taux → le dollar se renforce. Quand elle les baisse → les actifs risqués montent. Tout part de là.</div>
+                </div>
+                <div class="strategy-card reveal">
+                    <div class="card-number">02</div>
+                    <h3>Les institutions manipulent le prix</h3>
+                    <p>Les institutions et banques ont besoin de liquidité pour placer des positions massives. Pour ça, ils poussent le prix vers les zones où les ordres des retail traders s'accumulent les stops, les plus hauts, les plus bas évidents.</p>
+                    <div class="card-subtext">C'est ce qu'on appelle le Stop Hunt ou la chasse aux liquidités. Le marché monte pour déclencher les stops des vendeurs, puis se retourne violemment.</div>
+                </div>
+                <div class="strategy-card reveal">
+                    <div class="card-number">03</div>
+                    <h3>Elles se placent et<br>c'est là qu'on entre</h3>
+                    <p>Une fois la liquidité collectée, les institutions placent leurs vraies positions. Le prix repart dans la direction réelle. C'est exactement à ce moment-là, sur ces niveaux précis, que nous entrons en position avec eux.</p>
+                    <div class="card-subtext">On ne trade pas au hasard. On attend que le piège soit posé, que les institutions aient mangé la liquidité puis on suit le mouvement.</div>
+                </div>
+            </div>
+
+            <div class="trading-quote reveal" style="white-space: nowrap; max-width: none;">
+                "On ne prédit pas le marché. On se positionne là où les probabilités sont en notre faveur."
+            </div>
+        </div>
+    </section>
+
+    <!-- Videos Section -->
+    <section id="videos" class="section-padding" style="padding-top: 40px; padding-bottom: 40px;">
+        <div class="container">
+            <div class="section-header reveal" style="margin-bottom: 2.5rem; max-width: none;">
+                <h2 style="white-space: nowrap;">Comprendre les bases du trading</h2>
+                <p>Commence gratuitement. Apprends à ton rythme.</p>
+            </div>
+
+            <!-- Featured Video -->
+            <a href="https://youtu.be/3C1f4NE1TiM" target="_blank" class="featured-video reveal" style="text-decoration: none; display: flex;">
+                <div class="play-overlay">
+                    <i data-lucide="play" fill="currentColor"></i>
+                </div>
+                <div class="featured-info">
+                    <div class="video-meta">
+                        <span class="badge">Commencer ici ✓</span>
+                        <span>12 min</span>
+                    </div>
+                    <h3>Comment commencer en trading?</h3>
+                </div>
+            </a>
+
+            <!-- Video Grid -->
+            <div class="video-grid">
+                <a href="https://youtu.be/M56NDf-t7YM" target="_blank" class="video-card reveal" style="text-decoration: none; display: block;">
+                    <div class="video-thumb">
+                        <img src="images/video1.png" alt="Video">
+                        <div class="thumb-play"><i data-lucide="play" size="24" fill="currentColor"></i></div>
+                        <div class="thumb-overlay">14:00</div>
+                    </div>
+                    <h4>1. Les bougies en trading</h4>
+                    <span class="free-badge">Gratuit</span>
+                </a>
+                <a href="https://youtu.be/mGutmYZLvn0" target="_blank" class="video-card reveal" style="text-decoration: none; display: block;">
+                    <div class="video-thumb">
+                        <img src="images/video2.png" alt="Video">
+                        <div class="thumb-play"><i data-lucide="play" size="24" fill="currentColor"></i></div>
+                        <div class="thumb-overlay">11:00</div>
+                    </div>
+                    <h4>2. Les actifs financiers</h4>
+                    <span class="free-badge">Gratuit</span>
+                </a>
+                <a href="https://youtu.be/Xb5zk3IYek8" target="_blank" class="video-card reveal" style="text-decoration: none; display: block;">
+                    <div class="video-thumb">
+                        <img src="images/video3.png" alt="Video">
+                        <div class="thumb-play"><i data-lucide="play" size="24" fill="currentColor"></i></div>
+                        <div class="thumb-overlay">09:00</div>
+                    </div>
+                    <h4>3. Les impacts sur les marchés</h4>
+                    <span class="free-badge">Gratuit</span>
+                </a>
+                <a href="https://youtu.be/WraY7S43ilA" target="_blank" class="video-card reveal" style="text-decoration: none; display: block;">
+                    <div class="video-thumb">
+                        <img src="images/video4.png" alt="Video">
+                        <div class="thumb-play"><i data-lucide="play" size="24" fill="currentColor"></i></div>
+                        <div class="thumb-overlay">13:00</div>
+                    </div>
+                    <h4>4. Les acteurs du marché</h4>
+                    <span class="free-badge">Gratuit</span>
+                </a>
+                <a href="https://youtu.be/79D8qLYZXXI" target="_blank" class="video-card reveal" style="text-decoration: none; display: block;">
+                    <div class="video-thumb">
+                        <img src="images/video5.png" alt="Video">
+                        <div class="thumb-play"><i data-lucide="play" size="24" fill="currentColor"></i></div>
+                        <div class="thumb-overlay">16:00</div>
+                    </div>
+                    <h4>5. Les ranges en trading</h4>
+                    <span class="free-badge">Gratuit</span>
+                </a>
+                <a href="https://youtu.be/-BH2FNSAewc" target="_blank" class="video-card reveal" style="text-decoration: none; display: block;">
+                    <div class="video-thumb">
+                        <img src="images/video6.png" alt="Video">
+                        <div class="thumb-play"><i data-lucide="play" size="24" fill="currentColor"></i></div>
+                        <div class="thumb-overlay">18:00</div>
+                    </div>
+                    <h4>6. Les structures de marché</h4>
+                    <span class="free-badge">Gratuit</span>
+                </a>
+                <div class="video-card reveal" style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 2rem; grid-column: 1 / -1; margin-top: 1rem; background: rgba(255,255,255,0.02); padding: 2rem; border-radius: 16px; border: 1px solid var(--border);" id="youtube-footer">
+                    <h4 style="margin-bottom: 0; color: var(--text-main); font-size: 1.2rem;">Toutes les vidéos sont disponibles sur YouTube</h4>
+                    <a href="https://www.youtube.com/channel/UClhQ6WH0c0VD_0_pvhtkIZQ" target="_blank" class="btn btn-outline-green" style="white-space: nowrap;">Voir la chaîne →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Strategy Features Section -->
+    <section id="strategy-details" class="section-padding" style="background: radial-gradient(circle at center, #1c2333 0%, #0d1117 100%); position: relative; overflow: hidden;">
+        <!-- Subtle Glow Effect -->
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(63,185,80,0.05) 0%, transparent 70%); pointer-events: none;"></div>
+        
+        <div class="container" style="position: relative; z-index: 1;">
+            <div class="section-header reveal">
+                <span class="section-subtitle">Ma Stratégie</span>
+                <h2>Une méthodologie à l'épreuve du temps</h2>
+                <p>Développée pour durer, ma méthode ignore le bruit du marché pour se concentrer sur l'essentiel.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+                <div class="reveal" style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 32px; padding: 2.5rem; text-align: center; transition: var(--transition);">
+                    <div style="width: 64px; height: 64px; background: var(--green-soft); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: var(--green);">
+                        <i data-lucide="zap" size="32"></i>
+                    </div>
+                    <h3 style="margin-bottom: 1rem; font-size: 1.5rem;">Simple & Logique</h3>
+                    <p style="font-size: 0.95rem; line-height: 1.6;">Oubliez les indicateurs. Nous lisons la structure pure du marché et les zones d'intervention institutionnelles.</p>
+                </div>
+
+                <div class="reveal" style="background: rgba(63, 185, 80, 0.04); backdrop-filter: blur(10px); border: 1px solid rgba(63, 185, 80, 0.2); border-radius: 32px; padding: 2.5rem; text-align: center; transform: translateY(-20px); transition: var(--transition); box-shadow: 0 20px 40px rgba(0,0,0,0.2);">
+                    <div style="width: 64px; height: 64px; background: var(--green); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: #000;">
+                        <i data-lucide="history" size="32"></i>
+                    </div>
+                    <h3 style="margin-bottom: 1rem; font-size: 1.5rem;">5 Ans de Données</h3>
+                    <p style="font-size: 0.95rem; line-height: 1.6;">Chaque concept est validé par plus de 60 mois de backtesting rigoureux sur les paires majeures.</p>
+                </div>
+
+                <div class="reveal" style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 32px; padding: 2.5rem; text-align: center; transition: var(--transition);">
+                    <div style="width: 64px; height: 64px; background: var(--green-soft); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: var(--green);">
+                        <i data-lucide="globe" size="32"></i>
+                    </div>
+                    <h3 style="margin-bottom: 1rem; font-size: 1.5rem;">Toutes Sessions</h3>
+                    <p style="font-size: 0.95rem; line-height: 1.6;">Une logique universelle qui s'applique peu importe votre zone horaire ou la session tradée.</p>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            @media (max-width: 768px) {
+                #strategy-details .reveal { transform: none !important; margin-bottom: 1rem; }
+                #strategy-details div[style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+            }
+        </style>
+    </section>
+
+    <!-- Program Section -->
+    <section id="program" style="padding: 60px 0;">
+        <div class="container">
+            <div class="section-header reveal" style="margin-bottom: 3rem;">
+                <h2 style="white-space: nowrap;">L'Accompagnement Complet</h2>
+                <p>Choisis le niveau d'immersion qui correspond à tes objectifs.</p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- Tier 1 -->
+                <div class="pricing-card reveal">
+                    <h3>Étudiant</h3>
+                    <div class="price-container">
+                        <span class="price-value">900€</span>
+                        <span class="price-subtext">paiement unique</span>
+                    </div>
+                    <p class="pricing-subtitle">Accompagnement et formation adaptés à vos périodes d'études.</p>
+                    <span class="pricing-motivation">Objectif rentabilité :<br>6 mois</span>
+                    
+                    <div class="pricing-list">
+                        <div class="pricing-item"><i data-lucide="check-circle-2" class="check" size="18"></i> Plan de l'accompagnement</div>
+                        <div class="pricing-item"><i data-lucide="check-circle-2" class="check" size="18"></i> Planning adapté</div>
+                    </div>
+
+                    <a href="apply.html" class="btn btn-outline-green">Je me lance</a>
+                </div>
+
+                <!-- Tier 2 -->
+                <div class="pricing-card highlight reveal">
+                    <div class="pricing-badge">POPULAIRE</div>
+                    <h3>Formation</h3>
+                    <div class="price-container">
+                        <span class="price-value">1 500€</span>
+                        <span class="price-subtext">paiement unique</span>
+                    </div>
+                    <p class="pricing-subtitle">La formation complète.</p>
+                    <span class="pricing-motivation">Objectif rentabilité :<br>6 mois</span>
+                    
+                    <div class="pricing-list">
+                        <div class="pricing-item"><i data-lucide="check-circle-2" class="check" size="18"></i> Vidéo de formation</div>
+                        <div class="pricing-item"><i data-lucide="check-circle-2" class="check" size="18"></i> Accès au discord premium</div>
+                        <div class="pricing-item"><i data-lucide="check-circle-2" class="check" size="18"></i> Accès au trade récap</div>
+                    </div>
+
+                    <a href="apply.html" class="btn btn-outline-green">Je me lance</a>
+                </div>
+
+                <!-- Tier 3 -->
+                <div class="pricing-card highlight-purple reveal">
+                    <div class="pricing-badge">LE PLUS RENTABLE</div>
+                    <h3>Accompagnement</h3>
+                    <div class="price-container">
+                        <span class="price-value">2 500€</span>
+                        <span class="price-subtext">paiement unique</span>
+                    </div>
+                    <p class="pricing-subtitle">La formation complète et l'accompagnement sur mesure.</p>
+                    <span class="pricing-motivation">Objectif rentabilité :<br>2 à 3 mois</span>
+                    
+                    <div class="pricing-list">
+                        <div class="pricing-item"><i data-lucide="check-circle-2" class="check" size="18"></i> Plan formation inclus</div>
+                        <div class="pricing-item"><i data-lucide="check-circle-2" class="check" size="18"></i> Appel de coaching 1-1</div>
+                        <div class="pricing-item"><i data-lucide="check-circle-2" class="check" size="18"></i> Accès à ma messagerie</div>
+                        <div class="pricing-item"><i data-lucide="check-circle-2" class="check" size="18"></i> Suivi de tes datas pour analyse</div>
+                        <div class="pricing-item"><i data-lucide="check-circle-2" class="check" size="18"></i> Live trading</div>
+                        <div class="pricing-item"><i data-lucide="check-circle-2" class="check" size="18"></i> Suivi jusqu’au payout</div>
+                    </div>
+
+                    <a href="apply.html" class="btn btn-discord">Je me lance</a>
+                </div>
+            </div>
+
+            <p class="program-note reveal">Place limitée à 4 par mois, candidature étudiée sous 48 heures</p>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="section-padding">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Ils m'ont fait confiance</h2>
+                <p>La réussite est une question d'écoute, de méthode et d'apprentissage.</p>
+            </div>
+
+            <div class="testimonials-container">
+                <div class="testimonial-card reveal">
+                    <div class="rating">
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                    </div>
+                    <p class="testimonial-text">"Bastien est un super formateur, je partais de zéro et maintenant j’ai une vraie base solide de connaissances en trading avec une stratégie claire et efficace !"</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h5>Léo</h5>
+                            <span>24 ans</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <div class="rating">
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                    </div>
+                    <p class="testimonial-text">"Super formation, j’ai découvert le trading avec Bastien et maintenant je comprends beaucoup mieux ce domaine !"</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h5>Jean</h5>
+                            <span>27 ans</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <div class="rating">
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                    </div>
+                    <p class="testimonial-text">"Je partais de zéro dans le trading et Bastien a été très pédagogue, il m’a accompagné pendant plusieurs semaines jusqu’à mes premiers gains! sa méthode est géniale, je recommande a 100%"</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h5>Elie</h5>
+                            <span>29 ans</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card reveal">
+                    <div class="rating">
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                    </div>
+                    <p class="testimonial-text">"Bastien est un super formateur, je partais de zéro et maintenant j’ai une vraie base solide de connaissances en trading avec une stratégie claire et efficace !"</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h5>Léo</h5>
+                            <span>24 ans</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <div class="rating">
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                    </div>
+                    <p class="testimonial-text">"Super formation, j’ai découvert le trading avec Bastien et maintenant je comprends beaucoup mieux ce domaine !"</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h5>Jean</h5>
+                            <span>27 ans</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <div class="rating">
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                        <i data-lucide="star" fill="currentColor" size="16"></i>
+                    </div>
+                    <p class="testimonial-text">"Je partais de zéro dans le trading et Bastien a été très pédagogue, il m’a accompagné pendant plusieurs semaines jusqu’à mes premiers gains! sa méthode est géniale, je recommande a 100%"</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h5>Elie</h5>
+                            <span>29 ans</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-logo-side">
+                    <a href="index.html" class="logo"><img src="images/logo.png" alt="BTA Logo"></a>
+                    <p style="max-width: 400px; margin-top: 1.5rem;">Trade comme les pros. Vis à ta façon. Une méthode institutionnelle pour des traders indépendants.</p>
+                </div>
+                <div class="footer-links-side">
+                    <div>
+                        <h4>Navigation</h4>
+                        <ul>
+                            <li><a href="#about">À propos</a></li>
+                            <li><a href="#trading">Le Trading</a></li>
+                            <li><a href="#videos">Vidéos</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Rejoindre</h4>
+                        <ul>
+                            <li><a href="apply.html">Accompagnement</a></li>
+                            <li><a href="https://discord.gg/MpbdTXYc" style="color: #5865F2;">Discord</a></li>
+                            <li><a href="https://discord.gg/MpbdTXYc">YouTube</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 BTA. Tous droits réservés.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobileMenu');
+        function toggleMenu() {
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Reveal animations on scroll
+        const reveals = document.querySelectorAll('.reveal');
+        function reveal() {
+            for (let i = 0; i < reveals.length; i++) {
+                let windowHeight = window.innerHeight;
+                let elementTop = reveals[i].getBoundingClientRect().top;
+                let elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        window.addEventListener('scroll', reveal);
+        // Trigger once on load
+        reveal();
+    </script>
+</body>
+</html>

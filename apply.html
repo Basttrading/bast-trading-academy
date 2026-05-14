@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postuler | BTA - Bast Trading Academy</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/logo.png">
+    
+    <!-- Fonts: Satoshi & Inter via Fontshare -->
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,900,500,400&f[]=clash-display@600,700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --bg-deep: #0d1117;
+            --bg-card: #161b22;
+            --bg-secondary: #1c2333;
+            --border: rgba(255,255,255,0.08);
+            
+            --text-main: #e6edf3;
+            --text-muted: #7d8590;
+            --text-faint: #484f58;
+            
+            --green: #3fb950;
+            --green-hover: #2ea043;
+            --green-soft: rgba(63, 185, 80, 0.12);
+            
+            --white: #ffffff;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .font-serif {
+            font-family: 'Satoshi', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            gap: 0.5rem;
+            border: none;
+            width: 100%;
+        }
+
+        .btn-green {
+            background: var(--green);
+            color: #000;
+        }
+
+        .btn-green:hover {
+            background: var(--green-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(63,185,80,0.25);
+        }
+
+        .btn-discord {
+            background: transparent;
+            border: 1px solid #5865F2;
+            color: #5865F2;
+            text-decoration: none;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 0;
+            background: rgba(13, 17, 23, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: 'Satoshi', sans-serif;
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: var(--green);
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 32px;
+            width: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        nav .logo img {
+            height: 40px;
+        }
+
+        .logo span {
+            font-size: 0.6rem;
+            color: var(--white);
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            text-transform: none;
+            margin-top: 4px;
+        }
+
+        /* Form Styling */
+        .apply-header {
+            text-align: center;
+            margin-top: 140px;
+            margin-bottom: 60px;
+        }
+
+        .apply-header h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            margin-bottom: 1rem;
+        }
+
+        .apply-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .tier-selection {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tier-card {
+            background: var(--bg-deep);
+            border: 1px solid var(--border);
+            padding: 1rem 0.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .tier-card:hover {
+            border-color: var(--green);
+            transform: translateY(-2px);
+        }
+
+        .tier-card.selected {
+            border-color: var(--green);
+            background: rgba(63, 185, 80, 0.1);
+            box-shadow: 0 0 20px rgba(63, 185, 80, 0.05);
+        }
+
+        .tier-card.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: var(--green);
+            color: #000;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 0.7rem;
+        }
+
+        .tier-card h3 {
+            font-size: 0.85rem;
+            margin-bottom: 0;
+            white-space: nowrap;
+        }
+
+        .tier-card .price {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--green);
+        }
+
+        .form-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            padding: 3rem 2.5rem;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .form-group input {
+            width: 100%;
+            background: var(--bg-deep);
+            border: 1px solid var(--border);
+            padding: 1rem;
+            border-radius: 10px;
+            color: var(--white);
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--green);
+            box-shadow: 0 0 15px rgba(63, 185, 80, 0.1);
+        }
+
+        .submit-section {
+            margin-top: 2.5rem;
+        }
+
+        .virement-note {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+        }
+
+        .virement-note i {
+            color: var(--green);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Footer reused */
+        footer {
+            background-color: #090d13;
+            padding: 60px 0 40px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            margin-top: 100px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-logo-side h3 {
+            color: var(--green);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links-side {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .footer-links-side h4 {
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-main);
+        }
+
+        .footer-links-side ul li {
+            margin-bottom: 0.75rem;
+            list-style: none;
+        }
+
+        .footer-links-side ul li a {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            text-decoration: none;
+        }
+
+        .footer-links-side ul li a:hover {
+            color: var(--green);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.03);
+            color: var(--text-faint);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .apply-header {
+                margin-top: 100px;
+                margin-bottom: 30px;
+            }
+            .tier-selection {
+                gap: 0.5rem;
+            }
+            .tier-card {
+                padding: 0.75rem 0.25rem;
+            }
+            .tier-card h3 {
+                font-size: 0.75rem;
+            }
+            .tier-card .price {
+                font-size: 0.85rem;
+            }
+            .form-container {
+                padding: 1.5rem;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container">
+            <a href="index.html" class="logo"><img src="images/logo.png" alt="BTA Logo"></a>
+            <a href="https://discord.gg/MpbdTXYc" class="btn btn-discord" style="padding: 0.6rem 1.2rem; font-size: 0.85rem; width: auto;">Discord</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="apply-header">
+            <h1>Rejoins la <span style="color: var(--green);">BTA</span></h1>
+            <p>Choisis ton programme et remplis tes informations pour démarrer ton apprentissage dès aujourd'hui.</p>
+        </header>
+
+        <!-- Form Submission via Web3Forms -->
+        <form action="https://api.web3forms.com/submit" method="POST" id="applyForm">
+            <input type="hidden" name="access_key" value="d1c830c4-69f0-4842-a6b7-44e496f8150e">
+            <input type="hidden" name="subject" value="Nouvelle inscription - BAST TRADING ACADEMY">
+            
+            <div class="form-container">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                    <div class="form-group">
+                        <label for="firstName">Prénom</label>
+                        <input type="text" id="firstName" name="prenom" placeholder="Ex: Jean" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Nom</label>
+                        <input type="text" id="lastName" name="nom" placeholder="Ex: Dupont" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Adresse Email</label>
+                    <input type="email" id="email" name="email" placeholder="jean@exemple.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Numéro de Téléphone</label>
+                    <input type="tel" id="phone" name="telephone" placeholder="06 12 34 56 78" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Programme choisi</label>
+                    <div class="tier-selection">
+                        <div class="tier-card" onclick="selectTier('Étudiant', '900€')" id="tier-etudiant">
+                            <h3>Étudiant</h3>
+                            <span class="price">900€</span>
+                        </div>
+                        <div class="tier-card selected" onclick="selectTier('Formation', '1 500€')" id="tier-formation">
+                            <h3>Formation</h3>
+                            <span class="price">1 500€</span>
+                        </div>
+                        <div class="tier-card" onclick="selectTier('Accompagnement', '2 500€')" id="tier-accompagnement">
+                            <h3>Accompagnement</h3>
+                            <span class="price">2 500€</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hidden input to store selected tier -->
+                <input type="hidden" name="programme" id="selectedTier" value="Formation">
+                <input type="hidden" name="prix" id="selectedPrice" value="1 500€">
+
+                <div class="submit-section">
+                    <button type="submit" class="btn btn-green">Je postule</button>
+                    
+                    <div class="virement-note" style="margin-top: 1.5rem;">
+                        <i data-lucide="info" size="18"></i>
+                        <strong>Information Paiement :</strong> Une fois ton formulaire envoyé, tu recevras par email les instructions complètes pour effectuer le paiement et finaliser ton inscription.
+                    </div>
+
+                    <div id="success-msg" style="display:none; color:#c9a84c; margin-top:16px; text-align:center;">
+                      ✅ Merci ! Tu seras contacté sous 48h.
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-logo-side">
+                    <a href="index.html" class="logo"><img src="images/logo.png" alt="BTA Logo"></a>
+                    <p style="max-width: 400px; margin-top: 1.5rem;">Trade comme les pros. Vis à ta façon. Une méthode institutionnelle pour des traders indépendants.</p>
+                </div>
+                <div class="footer-links-side">
+                    <div>
+                        <h4>Navigation</h4>
+                        <ul>
+                            <li><a href="index.html#about">À propos</a></li>
+                            <li><a href="index.html#trading">Le Trading</a></li>
+                            <li><a href="index.html#videos">Vidéos</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Rejoindre</h4>
+                        <ul>
+                            <li><a href="apply.html" style="color: var(--green);">Je postule</a></li>
+                            <li><a href="https://discord.gg/MpbdTXYc" style="color: #5865F2;">Discord</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 BTA. Tous droits réservés.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        function selectTier(name, price) {
+            // Update hidden inputs
+            document.getElementById('selectedTier').value = name;
+            document.getElementById('selectedPrice').value = price;
+
+            // Update visual selection
+            document.querySelectorAll('.tier-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            if (name === 'Étudiant') {
+                document.getElementById('tier-etudiant').classList.add('selected');
+            } else {
+                if (name === 'Formation') document.getElementById('tier-formation').classList.add('selected');
+                if (name === 'Accompagnement') document.getElementById('tier-accompagnement').classList.add('selected');
+            }
+        }
+
+        document.querySelector('form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const data = new FormData(this);
+            const res = await fetch('https://api.web3forms.com/submit', {method:'POST', body:data});
+            if (res.ok) {
+                document.getElementById('success-msg').style.display = 'block';
+                this.reset();
+            }
+        });
+    </script>
+</body>
+</html>
